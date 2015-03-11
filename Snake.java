@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.awt.*;
 
 public class Snake {
 	private ArrayList<Coord> snake;
