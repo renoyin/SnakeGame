@@ -17,6 +17,14 @@ public class Coord {
 		return x;
 	}
 
+	public void xIs(int xCoord) {
+		x = xCoord;
+	}	
+
+	public void yIs(int yCoord) {
+		y = yCoord;
+	}
+
 	public int getY() {
 		return y;
 	}
