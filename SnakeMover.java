@@ -9,6 +9,7 @@ public class SnakeMover implements KeyListener, Runnable {
     Coord drct,cp;
     Snake snake;
     boolean turn = false;
+    GraphicsGrid graphicsGrid;
    
     /**
      * Initializes the grid and the current target that is to be moved.
@@ -24,6 +25,7 @@ public class SnakeMover implements KeyListener, Runnable {
 		this.cp = cp;
 		this.drct = drct;
 		this.snake = snake;
+		graphicsGrid = new GraphicsGrid(w,h,p,grid);
     }
     
     /**
@@ -38,17 +40,15 @@ public class SnakeMover implements KeyListener, Runnable {
 		    // determine snake's direction
 			if (turn == true) {
 				grid.snakeGrow(drct);
-				// add an obstacle.
+				// add an obstacle
 				// add 10 points
 			}
 			else {
 				grid.snakeMove(drct);
 			}
-		    // Remove the cell (which has index 4)
-		    grid.clearCell(4);
-		    cx += drct;
+			turn = false;
 		    // Draw the new one
-		    grid.fillCell(cx,cy);
+		    grid
 
 		}
     }
