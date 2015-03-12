@@ -27,7 +27,7 @@ public class SnakeMover implements KeyListener, Runnable {
 		this.snake = snake;
     }
     
-    public void setGraphics(int w,int h,int p,SnakeGrid grid) {
+    public void setGraphics(int w,int h,int p,GameGrid grid) {
     	graphicsGrid = new GraphicsGrid(w,h,p,grid);
     	return;
     }
@@ -77,9 +77,9 @@ public class SnakeMover implements KeyListener, Runnable {
 			int change = 1;
 			if (key == 'l') change = -1;
 			if (drct.getX() == 0)
-				nd= new Coord(change*direction.getY(), 0);
+				nd= new Coord(change*drct.getY(), 0);
 			else
-				nd = new Coord(0,-change*direction.getX());
+				nd = new Coord(0,-change*drct.getX());
 			drct = nd;
 			turn = true;
 		}
