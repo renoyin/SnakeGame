@@ -37,12 +37,12 @@ public class SnakeMover implements KeyListener, Runnable {
 		while (going) {
 		    // determine snake's direction
 			if (turn == true) {
-				snake.grow(cp.getX()+drct.getX(),cp.getY()+drct.getY());
+				grid.snakeGrow(drct);
 				// add an obstacle.
 				// add 10 points
 			}
 			else {
-				snake.move();
+				grid.snakeMove(drct);
 			}
 		    // Remove the cell (which has index 4)
 		    grid.clearCell(4);
