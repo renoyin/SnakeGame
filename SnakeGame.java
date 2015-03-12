@@ -3,10 +3,10 @@ import javax.swing.*;
 
 public class SnakeGame extends JFrame {
 	private static int w = 400, h = 400, p = 10;
-    private GameGrid grid;
-   	private SnakeMover move;
-   	private Snake snake;
-   	private GraphicsGrid graph;
+    private static GameGrid grid;
+   	private static SnakeMover move;
+   	private static Snake snake;
+   	private static GraphicsGrid graph;
    	public SnakeGame(int width, int height, int pixel) {
 		super();
 		w = width;
@@ -65,7 +65,7 @@ public class SnakeGame extends JFrame {
 		game.dispose();	
 	}
 
-	public void printHelp() {
+	public static void printHelp() {
 		System.out.println("     width – Integer width of the playing grid in pixels\n"+
 			"     height – Integer height of the playing grid in pixels\n"+
    			"     segmentsize – Integer size of each snake segement in pixels\n\n"+
