@@ -6,14 +6,14 @@ public class SnakeGame extends JFrame {
     private GameGrid grid;
    	private SnakeMover move;
    	private Snake snake;
-   	private GraphicGrid graph;
+   	private GraphicsGrid graph;
    	public SnakeGame(int width, int height, int pixel) {
 		super();
 		w = width;
 		h = height;
 		p = pixel;
 		//initialize graph
-		graph.setSize(w + 10, h + 35);
+		setSize(w + 10, h + 35);
 		snake = new Snake(w / (p * 2), h / (p * 2));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(graph);
@@ -60,9 +60,9 @@ public class SnakeGame extends JFrame {
 		catch (Exception excpt) {
 		    move.stop();
 		}
-		WindowEvent.dispatchEvent(new WindowEvent(window, 
+		WindowEvent.dispatchEvent(new WindowEvent(game, 
 						     WindowEvent.WINDOW_CLOSING));
-		window.dispose();	
+		game.dispose();	
 	}
 
 	public void printHelp() {
