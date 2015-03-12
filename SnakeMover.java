@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
 public class SnakeMover implements KeyListener, Runnable {
-    int wMax,hMax,speed;
+    int wMax,hMax,speed=1;
     GameGrid grid;
     boolean going = true;
     Coord drct,cp;
@@ -29,6 +29,7 @@ public class SnakeMover implements KeyListener, Runnable {
     
     public void setGraphics(int w,int h,int p,GameGrid grid) {
     	graphicsGrid = new GraphicsGrid(w,h,p,grid);
+    	graphicsGrid.fillCell();
     	return;
     }
     /**
