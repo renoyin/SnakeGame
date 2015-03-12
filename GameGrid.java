@@ -17,7 +17,7 @@ public class GameGrid {
 	public GameGrid(int xSegMax, int ySegMax, Snake s) {
 		xMax = xSegMax;
 		yMax = ySegMax;
-		grid = new char[xMax][yMax];
+		grid = new Color[xMax][yMax];
 		snake = s;
 		for (int i = 0; i < xMax; i++)
 			for (int j = 0; j < yMax; j++)
@@ -57,15 +57,18 @@ public class GameGrid {
 				if (grid[i][j] != OBSTACLE)
 					grid[i][j] = EMPTY;
 
-		grid[snake.get(0).getX()][snake.get(0).getY()] = HEAD;
-		for (int i = 1; i < snake.size(); i++) 
-			grid[snake.get(i).getX()][snake.get(i).getY()] = BODY; 
+		grid[snake.getSnake().get(0).getX()]
+		    [snake.getSnake().get(0).getY()] = HEAD;
+
+		for (int i = 1; i < snake.getSnake().size(); i++) 
+			grid[snake.getSnake().get(i).getX()]
+				[snake.getSnake().get(i).getY()] = BODY; 
 
 		return true;
 	}
 
 	public boolean valid() {
-		snakeHead = snake.get(0);
+		snakeHead = snake.getSnake().get(0);
 
 		if (snakeHead.getX() < 0 || snakeHead.getX() > xMax)
 			return false;
@@ -73,7 +76,8 @@ public class GameGrid {
 		if (snakeHead.getY() < 0 || snakeHead.getY() > yMax)
 			return false;
 
-		if (grid[snake.get(0).getX()][snake.get(0).getY()]==OBSTACLE)
+		if (grid[snake.getSnake().get(0).getX()]
+				[snake.getSnake().get(0).getY()]==OBSTACLE)
 			return false;
 
 		if (snake.intersect())

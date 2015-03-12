@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SnakeGame extends JFrame {
-	private int w = 400, h = 400, p = 10;
+	private static int w = 400, h = 400, p = 10;
     private GameGrid grid;
    	private SnakeMover move;
    	private Snake snake;
