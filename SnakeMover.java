@@ -25,9 +25,12 @@ public class SnakeMover implements KeyListener, Runnable {
 		this.cp = cp;
 		this.drct = drct;
 		this.snake = snake;
-		graphicsGrid = new GraphicsGrid(w,h,p,grid);
     }
     
+    public void setGraphics(int w,int h,int p,SnakeGrid grid) {
+    	graphicsGrid = new GraphicsGrid(w,h,p,grid);
+    	return;
+    }
     /**
      * Executes the moving of the snake.
      */
@@ -48,7 +51,7 @@ public class SnakeMover implements KeyListener, Runnable {
 			}
 			turn = false;
 		    // Draw the new one
-		    grid
+		    graphicsGrid.fillCell();
 
 		}
     }
