@@ -1,5 +1,11 @@
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import java.io.IOException;
+import java.lang.Thread;
+import java.lang.Runnable;
+import java.util.concurrent.TimeUnit;
+import java.awt.event.*;
 
 public class SnakeGame extends JFrame {
 	private static int w = 400, h = 400, p = 10;
@@ -7,7 +13,7 @@ public class SnakeGame extends JFrame {
    	private static SnakeMover move;
    	private static Snake snake;
    	private static GraphicsGrid graph;
-   	
+
    	public SnakeGame(int width, int height, int pixel) {
 		super();
 		w = width;
@@ -48,8 +54,8 @@ public class SnakeGame extends JFrame {
 		SnakeGame game = new SnakeGame(w, h, p);
 		snake = new Snake(w/p/2,0);
 		grid = new GameGrid(w/p,h/p,snake);
-		graph = new GraphicGrid(w,h,p,grid);
-		move = new SnakeMover(new Coord(w/p/2,0),new Coord(0,-1),grid,graph);
+		graph = new GraphicsGrid(w,h,p,grid);
+		move = new SnakeMover(new Coord(w/p/2,0),new Coord(0,-1),grid,snake);
 		Thread t = new Thread(move);
 		
 		try 
@@ -61,7 +67,7 @@ public class SnakeGame extends JFrame {
 		catch (Exception excpt) {
 		    move.stop();
 		}
-		WindowEvent.dispatchEvent(new WindowEvent(game, 
+		game.dispatchEvent(new WindowEvent(game, 
 						     WindowEvent.WINDOW_CLOSING));
 		game.dispose();	
 	}

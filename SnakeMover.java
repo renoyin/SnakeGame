@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;	
+import java.util.concurrent.TimeUnit;
 
 public class SnakeMover implements KeyListener, Runnable {
     int wMax,hMax,speed;

@@ -41,7 +41,7 @@ public class GameGrid {
 
 		grid[snake.getSnake().get(0).getX()]
 			[snake.getSnake().get(0).getY()] = HEAD;
-		for (int i = 1; i < snake.size(); i++) 
+		for (int i = 1; i < snake.getSnake().size(); i++) 
 			grid[snake.getSnake().get(i).getX()]
 				[snake.getSnake().get(i).getY()] = BODY; 
 
