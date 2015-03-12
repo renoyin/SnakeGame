@@ -39,9 +39,11 @@ public class GameGrid {
 				if (grid[i][j] != OBSTACLE)
 					grid[i][j] = EMPTY;
 
-		grid[snake.get(0).getX()][snake.get(0).getY()] = HEAD;
+		grid[snake.getSnake().get(0).getX()]
+			[snake.getSnake().get(0).getY()] = HEAD;
 		for (int i = 1; i < snake.size(); i++) 
-			grid[snake.get(i).getX()][snake.get(i).getY()] = BODY; 
+			grid[snake.getSnake().get(i).getX()]
+				[snake.getSnake().get(i).getY()] = BODY; 
 
 		return true;
 	}

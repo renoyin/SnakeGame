@@ -6,7 +6,7 @@ public class SnakeGame extends JFrame {
     private GameGrid grid;
    	private SnakeMover move;
    	private Snake snake;
-   	private GraphicGrid graph;
+   	private GraphicsGrid graph;
    	public SnakeGame(int width, int height, int pixel) {
 		super();
 		w = width;
