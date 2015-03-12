@@ -1,10 +1,10 @@
 import java.util.Random;
 
 public class GameGrid {
-	private static final Color EMPTY=Color.WHITE;
-	private static final Color BODY=Color.GREEN;
-	private static final Color HEAD=Color.RED;
-	private static final Color OBSTACLE=Color.BLACK;
+	private static final Color EMPTY = Color.WHITE;
+	private static final Color BODY = Color.GREEN;
+	private static final Color HEAD = Color.RED;
+	private static final Color OBSTACLE = Color.BLACK;
 	private Snake snake;
 	private Coord snakeHead;
 	private int xMax;
@@ -20,6 +20,10 @@ public class GameGrid {
 		for (int i = 0; i < xMax; i++)
 			for (int j = 0; j < yMax; j++)
 				grid[i][j] = EMPTY;
+	}
+
+	public Color getColor(int x, int y) {
+		return grid[x][y];
 	}
 
 	public boolean snakeMove(Coord direction) {
