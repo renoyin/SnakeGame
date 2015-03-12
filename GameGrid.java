@@ -13,15 +13,18 @@ public class GameGrid {
 	private Random rndm;
 	private Color[][] grid;
 
+
 	// xSegMax and ySegMax are number of segments in x and y
 	public GameGrid(int xSegMax, int ySegMax, Snake s) {
 		xMax = xSegMax;
 		yMax = ySegMax;
+		snakeHead = s.getSnake().get(0);
 		grid = new Color[xMax][yMax];
 		snake = s;
 		for (int i = 0; i < xMax; i++)
 			for (int j = 0; j < yMax; j++)
 				grid[i][j] = EMPTY;
+		grid[snakeHead.getX()][snakeHead.getY()] = HEAD;
 	}
 
 	public Color getColor(int x, int y) {

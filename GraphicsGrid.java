@@ -14,8 +14,8 @@ public class GraphicsGrid extends JPanel {
 		gameGrid = g; 
 		xSeg = width / segSize;
 		ySeg = height / segSize;
-		wOffset = (width - xSeg * segSize + 10) / 2;
-		hOffset = (height - ySeg * segSize + 35) / 2;
+		wOffset = (width - xSeg * segSize) / 2;
+		hOffset = (height - ySeg * segSize) / 2;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class GraphicsGrid extends JPanel {
 		    	       width + wOffset, i + hOffset);
     }
 
-    public synchronized void fillCell() {
+    public void fillCell() {
 		repaint();
     }
     /*

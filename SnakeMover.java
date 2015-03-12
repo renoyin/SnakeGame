@@ -36,11 +36,12 @@ public class SnakeMover implements KeyListener, Runnable {
      * Executes the moving of the snake.
      */
     public void run(){
-	    // Delay an amount of time
-		try { TimeUnit.MILLISECONDS.sleep(1000/speed);}
-		catch (InterruptedException e){};
-		if ((wMax == 0) || (hMax == 0)) going = false;
+		
 		while (going) {
+
+			try { TimeUnit.MILLISECONDS.sleep(1000/speed);}
+			catch (InterruptedException e){};
+
 		    // determine snake's direction
 			if (turn == true) {
 				grid.snakeGrow(drct);
@@ -53,7 +54,6 @@ public class SnakeMover implements KeyListener, Runnable {
 			turn = false;
 		    // Draw the new one
 		    graphicsGrid.fillCell();
-
 		}
     }
 
