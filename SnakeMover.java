@@ -47,8 +47,11 @@ public class SnakeMover implements KeyListener, Runnable {
 			if (turn == true) {
 				// modify System.exit(-1)
 				if (!grid.snakeGrow(drct))
-					System.exit(-1);	
+					System.exit(-1);
+
 				// add an obstacle
+				grid.addObstacle();
+
 				// add 10 points
 			}
 			else {
@@ -56,9 +59,12 @@ public class SnakeMover implements KeyListener, Runnable {
 				if (!grid.snakeMove(drct))
 					System.exit(-1);
 			}
+
+			// add an obstacle every ten move
+			if (grid.tenStep())
+				grid.addObstacle();
 			turn = false;
 		    // Draw the new one
-
 		    
 		}
     }

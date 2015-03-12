@@ -12,6 +12,7 @@ public class GameGrid {
 	private int yMax;
 	private Random rndm;
 	private Color[][] grid;
+	private int step = 0;
 
 
 	// xSegMax and ySegMax are number of segments in x and y
@@ -25,6 +26,7 @@ public class GameGrid {
 			for (int j = 0; j < yMax; j++)
 				grid[i][j] = EMPTY;
 		grid[snakeHead.getX()][snakeHead.getY()] = HEAD;
+		rndm = new Random();
 	}
 
 	public Color getColor(int x, int y) {
@@ -74,6 +76,7 @@ public class GameGrid {
 
 	public boolean valid() {
 		snakeHead = snake.getSnake().get(0);
+		step++;
 
 		if (snakeHead.getX() < 0 || snakeHead.getX() > xMax)
 			return false;
@@ -89,5 +92,26 @@ public class GameGrid {
 			return false;
 
 		return true;
+	}
+
+	public void addObstacle() {
+		boolean valid = true;
+
+		while (valid) {
+			int i = rndm.nextInt(xMax);
+			int j = rndm.nextInt(yMax);
+			if (grid[i][j] == EMPTY) {
+				grid[i][j] = OBSTACLE;
+				valid = false;
+			}
+		}
+	}
+
+	public boolean tenStep() {
+		if (step == 10) {
+			step = 0;
+			return true;
+		}
+		return false;
 	}
 }
