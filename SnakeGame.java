@@ -69,7 +69,7 @@ public class SnakeGame extends JFrame {
 		System.out.println("     width – Integer width of the playing grid in pixels\n"+
 			"     height – Integer height of the playing grid in pixels\n"+
    			"     segmentsize – Integer size of each snake segement in pixels\n\n"+
-			"     defaults: width = 400, height = 400, segmentsize = 10")
+			"     defaults: width = 400, height = 400, segmentsize = 10");
 	}
     
 }

@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.awt.*;
 
 public class GameGrid {
 	private static final Color EMPTY = Color.WHITE;
@@ -12,9 +13,10 @@ public class GameGrid {
 	private Random rndm;
 	private Color[][] grid;
 
-	public GameGrid(int xLimit, int yLimit, Snake s) {
-		xMax = xLimit;
-		yMax = yLimit;
+	// xSegMax and ySegMax are number of segments in x and y
+	public GameGrid(int xSegMax, int ySegMax, Snake s) {
+		xMax = xSegMax;
+		yMax = ySegMax;
 		grid = new char[xMax][yMax];
 		snake = s;
 		for (int i = 0; i < xMax; i++)

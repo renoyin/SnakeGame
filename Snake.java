@@ -25,7 +25,7 @@ public class Snake {
 		int x = direction.getX();
 		int y = direction.getY();
 		coords.add(0, new Coord(coords.get(0).getX() + x,
-								coords.get(0).getY() + y);
+								coords.get(0).getY() + y));
 	}
 
 	public Coord getHead() {
