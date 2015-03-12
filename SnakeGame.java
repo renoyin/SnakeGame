@@ -45,7 +45,7 @@ public class SnakeGame extends JFrame {
 			    return;
 			}
 	    }
-	    else {
+	    else if (a.length != 0) {
 			printHelp();
 			return;
 	    }
