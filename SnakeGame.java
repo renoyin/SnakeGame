@@ -45,17 +45,17 @@ public class SnakeGame extends JFrame {
 			    return;
 			}
 	    }
-	    else if (a.length != 0) {
+	    else {
 			printHelp();
 			return;
 	    }
 		
 		// Create the window.
-		SnakeGame game = new SnakeGame(w, h, p);
 		snake = new Snake(w/p/2,0);
 		grid = new GameGrid(w/p,h/p,snake);
-		move = new SnakeMover(new Coord(w/p/2,0),new Coord(0,1),grid,snake);
-		move.setGraphics(w,h,p,grid); 
+		graph = new GraphicsGrid(w,h,p,grid);
+		SnakeGame game = new SnakeGame(w, h, p);
+		move = new SnakeMover(new Coord(w/p/2,0),new Coord(0,-1),grid,snake);
 		Thread t = new Thread(move);
 		
 		try 
