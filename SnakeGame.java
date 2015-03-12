@@ -53,21 +53,28 @@ public class SnakeGame extends JFrame {
 		// Create the window.
 		snake = new Snake(w/p/2,0);
 		grid = new GameGrid(w/p,h/p,snake);
-		graph = new GraphicsGrid(w,h,p,grid);
+		move = new SnakeMover(new Coord(w/p/2,0),
+							  new Coord(0,1),grid,snake);
+		graph = move.setGraphics(w,h,p,grid);
+		graph.addKeyListener(move);
 		SnakeGame game = new SnakeGame(w, h, p);
-		move = new SnakeMover(new Coord(w/p/2,0),new Coord(0,-1),grid,snake);
-		move.setGraphics(w,h,p,grid);
 		Thread t = new Thread(move);
 		
 		try 
 		    {
-			System.out.format("Hit Return to exit program");
-			t.start();
-			System.in.read();
+				t.start();
 		    }
 		catch (Exception excpt) {
 		    move.stop();
 		}
+		try {
+			while (true) {
+				try { TimeUnit.MILLISECONDS.sleep(20);}
+				catch (InterruptedException e){};
+				graph.fillCell();
+			}
+		}
+		catch (Exception e) {};
 		game.dispatchEvent(new WindowEvent(game, 
 						     WindowEvent.WINDOW_CLOSING));
 		game.dispose();	

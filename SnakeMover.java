@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;	
 import java.util.concurrent.TimeUnit;
+import java.lang.Thread;
+import javax.swing.*;
 
 public class SnakeMover implements KeyListener, Runnable {
     int wMax,hMax,speed=1;
@@ -27,33 +29,37 @@ public class SnakeMover implements KeyListener, Runnable {
 		this.snake = snake;
     }
     
-    public void setGraphics(int w,int h,int p,GameGrid grid) {
+    public GraphicsGrid setGraphics(int w,int h,int p,GameGrid grid) {
     	graphicsGrid = new GraphicsGrid(w,h,p,grid);
-    	graphicsGrid.fillCell();
-    	return;
+    	return graphicsGrid;
     }
     /**
      * Executes the moving of the snake.
      */
     public void run(){
-		
+
 		while (going) {
 
 			try { TimeUnit.MILLISECONDS.sleep(1000/speed);}
 			catch (InterruptedException e){};
 
-		    // determine snake's direction
+		    // whether the snake changes direction
 			if (turn == true) {
-				grid.snakeGrow(drct);
+				// modify System.exit(-1)
+				if (!grid.snakeGrow(drct))
+					System.exit(-1);	
 				// add an obstacle
 				// add 10 points
 			}
 			else {
-				grid.snakeMove(drct);
+				// modify System.exit(-1)
+				if (!grid.snakeMove(drct))
+					System.exit(-1);
 			}
 			turn = false;
 		    // Draw the new one
-		    graphicsGrid.fillCell();
+
+		    
 		}
     }
 
@@ -71,10 +77,10 @@ public class SnakeMover implements KeyListener, Runnable {
 	public void keyTyped(KeyEvent e) {
 		Coord nd;
 		char key = e.getKeyChar();
+
 		if (!going) return; // don't move
 
-		if (key == 'l' || key == 'j')  
-		{
+		if (key == 'l' || key == 'j') {
 			int change = 1;
 			if (key == 'l') change = -1;
 			if (drct.getX() == 0)

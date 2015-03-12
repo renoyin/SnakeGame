@@ -41,7 +41,7 @@ public class GameGrid {
 			for (int j = 0; j < yMax; j++) 
 				if (grid[i][j] != OBSTACLE)
 					grid[i][j] = EMPTY;
-
+				
 		grid[snake.getSnake().get(0).getX()]
 			[snake.getSnake().get(0).getY()] = HEAD;
 		for (int i = 1; i < snake.getSnake().size(); i++) 
@@ -84,7 +84,7 @@ public class GameGrid {
 		if (grid[snake.getSnake().get(0).getX()]
 				[snake.getSnake().get(0).getY()]==OBSTACLE)
 			return false;
-
+		
 		if (snake.intersect())
 			return false;
 

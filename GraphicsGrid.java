@@ -1,12 +1,14 @@
 import java.awt.*;
 import javax.swing.*;
+import java.lang.Thread;
 
 public class GraphicsGrid extends JPanel {
 	private int width, height, segSize;
 	private int xSeg, ySeg, wOffset, hOffset;
 	private GameGrid gameGrid; 
 
-	public GraphicsGrid(int w, int h, int p, GameGrid g) {
+	public GraphicsGrid(int w, int h, int p, 
+						GameGrid g) {
 		width = w;
 		height = h;
 		segSize = p;
@@ -16,6 +18,8 @@ public class GraphicsGrid extends JPanel {
 		ySeg = height / segSize;
 		wOffset = (width - xSeg * segSize) / 2;
 		hOffset = (height - ySeg * segSize) / 2;
+		setFocusable(true);
+		requestFocusInWindow();
     }
 
     @Override
@@ -44,12 +48,6 @@ public class GraphicsGrid extends JPanel {
     }
 
     public void fillCell() {
-		repaint();
+    	repaint();
     }
-    /*
-    public synchronized void clearCell() {
-		fillCells.remove(4);
-		repaint();
-    } 
-    */
 }
