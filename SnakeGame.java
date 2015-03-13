@@ -83,7 +83,7 @@ public class SnakeGame extends JFrame {
 		}
 		try {
 			while (true) {
-				try { TimeUnit.MILLISECONDS.sleep(20);}
+				try { TimeUnit.MILLISECONDS.sleep(50);}
 				catch (InterruptedException e){};
 				graph.fillCell();
 			}

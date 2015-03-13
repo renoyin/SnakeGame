@@ -53,6 +53,7 @@ public class SnakeMover implements KeyListener, Runnable {
 				grid.addObstacle();
 
 				// add 10 points
+				grid.addPoints(10);
 			}
 			else {
 				// modify System.exit(-1)
@@ -64,6 +65,10 @@ public class SnakeMover implements KeyListener, Runnable {
 			if (grid.tenStep())
 				grid.addObstacle();
 			turn = false;
+
+			if (grid.getPoints() % 100 == 0) {
+				speed += 1;
+			}
 		    // Draw the new one
 		    
 		}

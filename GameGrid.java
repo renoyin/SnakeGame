@@ -13,6 +13,7 @@ public class GameGrid {
 	private Random rndm;
 	private Color[][] grid;
 	private int step = 0;
+	private int points = 0;
 
 
 	// xSegMax and ySegMax are number of segments in x and y
@@ -113,5 +114,13 @@ public class GameGrid {
 			return true;
 		}
 		return false;
+	}
+
+	public void addPoints(int p) {
+		points += p;
+	}
+
+	public int getPoints() {
+		return points;
 	}
 }
