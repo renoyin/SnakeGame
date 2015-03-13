@@ -15,6 +15,7 @@ public class GameGrid {
 	private int step = 0;
 	private int points = 0;
 	private GraphicsGrid graphicsGrid;
+	private SnakeGame game;
 
 
 	// xSegMax and ySegMax are number of segments in x and y
@@ -29,6 +30,10 @@ public class GameGrid {
 				grid[i][j] = EMPTY;
 		grid[snakeHead.getX()][snakeHead.getY()] = HEAD;
 		rndm = new Random();
+	}
+
+	public void passGame(SnakeGame g) {
+		game = g;
 	}
 
     public GraphicsGrid setGraphics(int w,int h,int p,GameGrid grid) {
@@ -57,12 +62,13 @@ public class GameGrid {
 			grid[snake.getSnake().get(i).getX()]
 				[snake.getSnake().get(i).getY()] = BODY; 
 		graphicsGrid.fillCell();
+		
 		return true;
 	}
 
 	public boolean snakeGrow(Coord direction) {
 		snake.grow(direction);
-
+		
 		if (!valid())
 			return false;
 
@@ -77,7 +83,8 @@ public class GameGrid {
 		for (int i = 1; i < snake.getSnake().size(); i++) 
 			grid[snake.getSnake().get(i).getX()]
 				[snake.getSnake().get(i).getY()] = BODY; 
-		graphicsGrid.fillCell();			
+		graphicsGrid.fillCell();	
+				
 		return true;
 	}
 
@@ -124,6 +131,7 @@ public class GameGrid {
 
 	public void addPoints(int p) {
 		points += p;
+		game.setScore();
 	}
 
 	public int getPoints() {

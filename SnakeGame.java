@@ -13,7 +13,7 @@ public class SnakeGame extends JFrame {
    	private static SnakeMover move;
    	private static Snake snake;
    	private static GraphicsGrid graph;
-   	private static JLabel score, highScore;
+   	private static JLabel text1, text2, score, highScore;
    	private static JPanel topPanel;
    	private Container contentPane = getContentPane();
 
@@ -25,14 +25,19 @@ public class SnakeGame extends JFrame {
 
 		topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(2, 3));
-		score = new JLabel("Score: ");
-		highScore = new JLabel("High Score: ");
+		text1 = new JLabel("Score: ");
+		text2 = new JLabel("High Score: ");
+		score = new JLabel("0");
+		score.setText(String.valueOf(grid.getPoints()));
+		highScore = new JLabel("0");
+		topPanel.add(text1);
 		topPanel.add(score);
+		topPanel.add(text2);
 		topPanel.add(highScore);
 		contentPane.add(topPanel, BorderLayout.NORTH);
 		contentPane.validate();		
 
-		setSize(w + 10, h + 100);
+		setSize(w + 10, h + 70);
 		snake = new Snake(w / (p * 2), h / (p * 2));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(graph);
@@ -72,23 +77,17 @@ public class SnakeGame extends JFrame {
 		graph = grid.setGraphics(w,h,p,grid);
 		graph.addKeyListener(move);
 		SnakeGame game = new SnakeGame(w, h, p);
+		grid.passGame(game);
 		Thread t = new Thread(move);
 		
-		try 
-		    {
-				t.start();
-		    }
+		try {
+			t.start();
+			System.in.read();
+		}
 		catch (Exception excpt) {
 		    move.stop();
 		}
-		/*try {
-			while (true) {
-				try { TimeUnit.MILLISECONDS.sleep(50);}
-				catch (InterruptedException e){};
-				graph.fillCell();
-			}
-		}*/
-		catch (Exception e) {};
+		
 		game.dispatchEvent(new WindowEvent(game, 
 						     WindowEvent.WINDOW_CLOSING));
 		game.dispose();	
@@ -101,4 +100,7 @@ public class SnakeGame extends JFrame {
 			"     defaults: width = 400, height = 400, segmentsize = 10");
 	}
     
+    public void setScore() {
+    	score.setText(String.valueOf(grid.getPoints()));
+    }
 }

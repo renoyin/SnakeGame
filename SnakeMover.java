@@ -10,8 +10,9 @@ public class SnakeMover implements KeyListener, Runnable {
     boolean going = true;
     Coord drct,cp,nd;
     Snake snake;
-    boolean turn = false;
+    boolean turn = false,speedup = false;
     GraphicsGrid graphicsGrid;
+
    
     /**
      * Initializes the grid and the current target that is to be moved.
@@ -47,11 +48,13 @@ public class SnakeMover implements KeyListener, Runnable {
 				if (!grid.snakeGrow(drct))
 					System.exit(-1);
 
+				// add 10 points
+				grid.addPoints(10);
+
 				// add an obstacle
 				grid.addObstacle();
 
-				// add 10 points
-				grid.addPoints(10);
+				speedup = true;
 			}
 			else {
 				// modify System.exit(-1)
@@ -64,11 +67,12 @@ public class SnakeMover implements KeyListener, Runnable {
 				grid.addObstacle();
 			turn = false;
 
-			if (grid.getPoints() % 100 == 0) {
+			if ((grid.getPoints() % 100 == 0)
+				&& (speedup)) {
 				speed += 1;
 			}
-		    // Draw the new one
 		    
+
 		}
     }
 
