@@ -13,19 +13,33 @@ public class SnakeGame extends JFrame {
    	private static SnakeMover move;
    	private static Snake snake;
    	private static GraphicsGrid graph;
+   	private static JLabel score, highScore;
+   	private static JPanel topPanel;
+   	private Container contentPane = getContentPane();
 
    	public SnakeGame(int width, int height, int pixel) {
 		super();
 		w = width;
 		h = height;
 		p = pixel;
-		//initialize graph
-		setSize(w + 10, h + 35);
+
+		topPanel = new JPanel();
+		topPanel.setLayout(new GridLayout(2, 3));
+		score = new JLabel("Score: ");
+		highScore = new JLabel("High Score: ");
+		topPanel.add(score);
+		topPanel.add(highScore);
+		contentPane.add(topPanel, BorderLayout.NORTH);
+		contentPane.validate();		
+
+		setSize(w + 10, h + 100);
 		snake = new Snake(w / (p * 2), h / (p * 2));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(graph);
 		setVisible(true);
 		graph.repaint();
+
+		
 	}
 
 	public static void main(String[] a) {
