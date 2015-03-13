@@ -8,7 +8,7 @@ public class SnakeMover implements KeyListener, Runnable {
     int wMax,hMax,speed=1;
     GameGrid grid;
     boolean going = true;
-    Coord drct,cp;
+    Coord drct,cp,nd;
     Snake snake;
     boolean turn = false;
     GraphicsGrid graphicsGrid;
@@ -29,10 +29,7 @@ public class SnakeMover implements KeyListener, Runnable {
 		this.snake = snake;
     }
     
-    public GraphicsGrid setGraphics(int w,int h,int p,GameGrid grid) {
-    	graphicsGrid = new GraphicsGrid(w,h,p,grid);
-    	return graphicsGrid;
-    }
+
     /**
      * Executes the moving of the snake.
      */
@@ -46,6 +43,7 @@ public class SnakeMover implements KeyListener, Runnable {
 		    // whether the snake changes direction
 			if (turn == true) {
 				// modify System.exit(-1)
+				drct = nd;
 				if (!grid.snakeGrow(drct))
 					System.exit(-1);
 
@@ -86,7 +84,6 @@ public class SnakeMover implements KeyListener, Runnable {
 	}
 
 	public void keyTyped(KeyEvent e) {
-		Coord nd;
 		char key = e.getKeyChar();
 
 		if (!going) return; // don't move
@@ -98,7 +95,6 @@ public class SnakeMover implements KeyListener, Runnable {
 				nd= new Coord(change*drct.getY(), 0);
 			else
 				nd = new Coord(0,-change*drct.getX());
-			drct = nd;
 			turn = true;
 		}
 	}

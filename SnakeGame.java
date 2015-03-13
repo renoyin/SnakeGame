@@ -69,7 +69,7 @@ public class SnakeGame extends JFrame {
 		grid = new GameGrid(w/p,h/p,snake);
 		move = new SnakeMover(new Coord(w/p/2,0),
 							  new Coord(0,1),grid,snake);
-		graph = move.setGraphics(w,h,p,grid);
+		graph = grid.setGraphics(w,h,p,grid);
 		graph.addKeyListener(move);
 		SnakeGame game = new SnakeGame(w, h, p);
 		Thread t = new Thread(move);
@@ -81,13 +81,13 @@ public class SnakeGame extends JFrame {
 		catch (Exception excpt) {
 		    move.stop();
 		}
-		try {
+		/*try {
 			while (true) {
 				try { TimeUnit.MILLISECONDS.sleep(50);}
 				catch (InterruptedException e){};
 				graph.fillCell();
 			}
-		}
+		}*/
 		catch (Exception e) {};
 		game.dispatchEvent(new WindowEvent(game, 
 						     WindowEvent.WINDOW_CLOSING));

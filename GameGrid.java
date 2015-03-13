@@ -14,6 +14,7 @@ public class GameGrid {
 	private Color[][] grid;
 	private int step = 0;
 	private int points = 0;
+	private GraphicsGrid graphicsGrid;
 
 
 	// xSegMax and ySegMax are number of segments in x and y
@@ -29,6 +30,11 @@ public class GameGrid {
 		grid[snakeHead.getX()][snakeHead.getY()] = HEAD;
 		rndm = new Random();
 	}
+
+    public GraphicsGrid setGraphics(int w,int h,int p,GameGrid grid) {
+    	graphicsGrid = new GraphicsGrid(w,h,p,grid);
+    	return graphicsGrid;
+    }
 
 	public Color getColor(int x, int y) {
 		return grid[x][y];
@@ -50,7 +56,7 @@ public class GameGrid {
 		for (int i = 1; i < snake.getSnake().size(); i++) 
 			grid[snake.getSnake().get(i).getX()]
 				[snake.getSnake().get(i).getY()] = BODY; 
-
+		graphicsGrid.fillCell();
 		return true;
 	}
 
@@ -71,7 +77,7 @@ public class GameGrid {
 		for (int i = 1; i < snake.getSnake().size(); i++) 
 			grid[snake.getSnake().get(i).getX()]
 				[snake.getSnake().get(i).getY()] = BODY; 
-
+		graphicsGrid.fillCell();			
 		return true;
 	}
 
