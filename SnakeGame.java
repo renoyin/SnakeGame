@@ -122,7 +122,7 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 
     @Override public void stateChanged(ChangeEvent e) {
     	speedValue = slider.getValue();
-    	//update speed
+    	move.speedTo(speedValue);
     }
 
     @Override public void actionPerformed(ActionEvent e) {

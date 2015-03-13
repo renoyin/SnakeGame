@@ -74,6 +74,10 @@ public class SnakeMover implements KeyListener, Runnable {
 		}
     }
 
+    public void speedTo(int newSpeed) {
+    	speed = newSpeed;
+    }
+
     public void stop(){
 		going = false;
     }
