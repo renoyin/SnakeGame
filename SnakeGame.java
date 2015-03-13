@@ -54,11 +54,7 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 		reset.addActionListener(this);
 
 		setSize(w + 10, h + 70);
-		snake = new Snake(w / (p * 2), h / (p * 2));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		add(graph);
-		setVisible(true);
-		graph.repaint();
 
 		
 	}
@@ -86,14 +82,19 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 	    }
 		
 		// Create the window.
+		SnakeGame game = new SnakeGame(w, h, p);
+
+
 		snake = new Snake(w/p/2,0);
 		grid = new GameGrid(w/p,h/p,snake);
 		move = new SnakeMover(new Coord(w/p/2,0),
 							  new Coord(0,1),grid,snake);
 		graph = grid.setGraphics(w,h,p,grid);
 		graph.addKeyListener(move);
-		SnakeGame game = new SnakeGame(w, h, p);
 		grid.passGame(game);
+		game.add(graph);
+		game.setVisible(true);
+		graph.repaint();
 		Thread t = new Thread(move);
 		
 		try {
