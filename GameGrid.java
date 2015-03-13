@@ -145,4 +145,8 @@ public class GameGrid {
 	public int getPoints() {
 		return points;
 	}
+
+    public void sliderSync(int speed) {
+	game.setSlider(speed);
+    }
 }
