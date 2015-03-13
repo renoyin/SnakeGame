@@ -14,6 +14,7 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
    	private static Snake snake;
    	private static GraphicsGrid graph;
    	private static JLabel text1, text2, score, highScore;
+   	private static JLabel gameOver;
    	private static JPanel topPanel;
    	private Container contentPane = getContentPane();
    	private static JSlider slider;
@@ -33,10 +34,14 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 		score = new JLabel("0");
 		score.setText(String.valueOf(grid.getPoints()));
 		highScore = new JLabel("0");
+		gameOver = new JLabel("");
+		
 		topPanel.add(text1);
 		topPanel.add(score);
+		topPanel.add(gameOver);
 		topPanel.add(text2);
 		topPanel.add(highScore);
+		
 		contentPane.add(topPanel, BorderLayout.NORTH);
 		contentPane.validate();
 
@@ -129,5 +134,9 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
     	else if (sourceEvent == reset) {
     		//reset
     	}
+
+    public void gameOver() {
+    	gameOver.setText("GAME OVER!");
+    	move.stop();
     }
 }

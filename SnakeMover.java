@@ -43,10 +43,9 @@ public class SnakeMover implements KeyListener, Runnable {
 
 		    // whether the snake changes direction
 			if (turn == true) {
-				// modify System.exit(-1)
 				drct = nd;
 				if (!grid.snakeGrow(drct))
-					System.exit(-1);
+					break;
 
 				// add 10 points
 				grid.addPoints(10);
@@ -57,9 +56,8 @@ public class SnakeMover implements KeyListener, Runnable {
 				speedup = true;
 			}
 			else {
-				// modify System.exit(-1)
 				if (!grid.snakeMove(drct))
-					System.exit(-1);
+					break;
 			}
 
 			// add an obstacle every ten move
