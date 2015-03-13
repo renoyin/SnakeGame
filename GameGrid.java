@@ -92,18 +92,26 @@ public class GameGrid {
 		snakeHead = snake.getSnake().get(0);
 		step++;
 
-		if (snakeHead.getX() < 0 || snakeHead.getX() > xMax)
+		if (snakeHead.getX() < 0 || snakeHead.getX() > xMax) {
+			game.gameOver();
 			return false;
+		}
 
-		if (snakeHead.getY() < 0 || snakeHead.getY() > yMax)
+		if (snakeHead.getY() < 0 || snakeHead.getY() > yMax) {
+			game.gameOver();
 			return false;
+		}
 
 		if (grid[snake.getSnake().get(0).getX()]
-				[snake.getSnake().get(0).getY()]==OBSTACLE)
+				[snake.getSnake().get(0).getY()]==OBSTACLE) {
+			game.gameOver();
 			return false;
+		}
 		
-		if (snake.intersect())
+		if (snake.intersect()) {
+			game.gameOver();
 			return false;
+		}
 
 		return true;
 	}
