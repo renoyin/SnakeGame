@@ -52,7 +52,6 @@ public class SnakeMover implements KeyListener, Runnable {
 
 				// add an obstacle
 				grid.addObstacle();
-
 				speedup = true;
 			}
 			else {
@@ -66,8 +65,10 @@ public class SnakeMover implements KeyListener, Runnable {
 			turn = false;
 
 			if ((grid.getPoints() % 100 == 0)
-				&& (speedup)) {
+			    && (speedup) && (speed < 20)) {
 				speed += 1;
+				grid.sliderSync(speed);
+				speedup = false;
 			}
 		    
 
@@ -83,25 +84,25 @@ public class SnakeMover implements KeyListener, Runnable {
     }
 
     // Implement the KeyListener Interface
-	public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
+    }
+    
+    public void keyReleased(KeyEvent e) {
+    }
+    
+    public void keyTyped(KeyEvent e) {
+	char key = e.getKeyChar();
+	
+	if (!going) return; // don't move
+	
+	if (key == 'l' || key == 'j') {
+	    int change = 1;
+	    if (key == 'l') change = -1;
+	    if (drct.getX() == 0)
+		nd= new Coord(change*drct.getY(), 0);
+	    else
+		nd = new Coord(0,-change*drct.getX());
+	    turn = true;
 	}
-
-	public void keyReleased(KeyEvent e) {
-	}
-
-	public void keyTyped(KeyEvent e) {
-		char key = e.getKeyChar();
-
-		if (!going) return; // don't move
-
-		if (key == 'l' || key == 'j') {
-			int change = 1;
-			if (key == 'l') change = -1;
-			if (drct.getX() == 0)
-				nd= new Coord(change*drct.getY(), 0);
-			else
-				nd = new Coord(0,-change*drct.getX());
-			turn = true;
-		}
-	}
+    }
 }
