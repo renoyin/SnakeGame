@@ -7,7 +7,7 @@ import java.lang.Runnable;
 import java.util.concurrent.TimeUnit;
 import java.awt.event.*;
 
-public class SnakeGame extends JFrame implements ActionListener, ChangeListener {
+public class SnakeGame extends JFrame implements ChangeListener{
 	private static int w = 400, h = 400, p = 10;
     private static GameGrid grid;
    	private static SnakeMover move;
@@ -16,11 +16,13 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
    	private static JLabel text1, text2, score, highScore;
    	private static JLabel gameOver;
    	private static JPanel topPanel;
+   	private static JPanel bottomPanel;
    	private Container contentPane = getContentPane();
    	private static JSlider slider;
    	private static int sliderValue = 1;
    	private static int speedMin = 0, speedMax = 20, speedInit = 1;
    	private static JButton newGame, reset;
+
    	public SnakeGame(int width, int height, int pixel) {
 		super();
 		w = width;
@@ -32,7 +34,6 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 		text1 = new JLabel("Score: ");
 		text2 = new JLabel("High Score: ");
 		score = new JLabel("0");
-		score.setText(String.valueOf(grid.getPoints()));
 		highScore = new JLabel("0");
 		gameOver = new JLabel("");
 		
@@ -41,22 +42,36 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 		topPanel.add(gameOver);
 		topPanel.add(text2);
 		topPanel.add(highScore);
+
+		bottomPanel = new JPanel();
+		bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		newGame = new JButton("NEW GAME");
+		reset = new JButton("Reset!");
+		slider = new JSlider();
+
+		bottomPanel.add(newGame);
+		bottomPanel.add(reset);
+		bottomPanel.add(slider);
 		
 		contentPane.add(topPanel, BorderLayout.NORTH);
+		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		contentPane.validate();
 
+		setSize(w + 10, h + 95);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		add(graph);
+		setVisible(true);
+		graph.repaint();
+
+		
 		slider = new JSlider(speedMin, speedMax, speedInit);
 		slider.addChangeListener(this);
 		
-		newGame = new JButton("New Game");
+		/*
 		newGame.addActionListener(this);
-		reset = new JButton("Reset!");
 		reset.addActionListener(this);
+		*/
 
-		setSize(w + 10, h + 70);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		
 	}
 
 	public static void main(String[] a) {
@@ -82,7 +97,6 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 	    }
 		
 		// Create the window.
-		SnakeGame game = new SnakeGame(w, h, p);
 
 
 		snake = new Snake(w/p/2,0);
@@ -91,10 +105,10 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
 							  new Coord(0,1),grid,snake);
 		graph = grid.setGraphics(w,h,p,grid);
 		graph.addKeyListener(move);
+
+		SnakeGame game = new SnakeGame(w, h, p);
 		grid.passGame(game);
-		game.add(graph);
-		game.setVisible(true);
-		graph.repaint();
+		
 		Thread t = new Thread(move);
 		
 		try {
@@ -121,12 +135,15 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
     	score.setText(String.valueOf(grid.getPoints()));
     }
 
-    @Override public void stateChanged(ChangeEvent e) {
-    	speedValue = slider.getValue();
+    
+    @Override 
+    public void stateChanged(ChangeEvent e) {
+    	int speedValue = slider.getValue();
     	move.speedTo(speedValue);
     }
-
-    @Override public void actionPerformed(ActionEvent e) {
+    /*
+    @Override 
+    public void actionPerformed(ActionEvent e) {
     	JButton sourceEvent = (JButton) event.getSource();
 
     	if (sourceEvent == newGame) {
@@ -135,6 +152,8 @@ public class SnakeGame extends JFrame implements ActionListener, ChangeListener 
     	else if (sourceEvent == reset) {
     		//reset
     	}
+    }
+    */
 
     public void gameOver() {
     	gameOver.setText("GAME OVER!");
