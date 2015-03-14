@@ -1,12 +1,16 @@
+/**
+ * This class includes methods related to painting graphs.
+ * 
+ */
+
 import java.awt.*;
 import javax.swing.*;
 import java.lang.Thread;
 
 public class GraphicsGrid extends JPanel {
     private int width, height, segSize;
-    private int xSeg, ySeg;
+    private int xSeg, ySeg, wOffset, hOffset;
     private int widthGrid, heightGrid;
-    private int wOffset, hOffset;
     private GameGrid gameGrid; 
     
     public GraphicsGrid(int w, int h, int p, 
@@ -64,8 +68,6 @@ public class GraphicsGrid extends JPanel {
 	for (int i = 0; i <= height; i += segSize)
 	    g.drawLine(wOffset, i + hOffset, 
 		       wOffset+widthGrid, i + hOffset);
-
-	//System.out.println(hOffsetT + " "+hOffsetB+" "+wOffsetL+" "+wOffsetR);
     }
     
     public void fillCell() {

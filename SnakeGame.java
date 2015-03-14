@@ -26,13 +26,15 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
     private static int speedMin = 0, speedMax = 20, speedInit = 1;
     private static JButton newGame, reset;
     private static int hsValue = 0;
-    private static boolean gamePause = false;
+    private static boolean gamePause = false, gameStarted = false;
 
     public SnakeGame(int width, int height, int pixel) {
 	super();
 	w = width;
 	h = height;
 	p = pixel;
+	//int wOffset = (widthTemp - w/p*p) / 2;
+	//int hOffset = (heightTemp - h/p*p) / 2;
 	
 	topPanel = new JPanel();
 	topPanel.setLayout(new GridLayout(2, 3));
@@ -69,9 +71,15 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	bottomPanel.add(reset);
 	bottomPanel.add(slider);
 	bottomPanel.validate();
-	
-	
-	setSize(w + 10 + wOffset, h + 99 + hOffset);
+
+	int iniW = w;
+	int iniH = h;
+	if (w<400) iniW = 400;
+	if (h<400) iniH = 400;
+	setSize(iniW + 10 + wOffset, iniH + 99 + hOffset);
+	wOffset = (iniW - w/p*p) / 2;
+	hOffset = (iniH - h/p*p) / 2;
+	graph.resizeGraph(wOffset, hOffset);
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	contentPane.add(graph, BorderLayout.CENTER);
 	setVisible(true);
@@ -82,8 +90,8 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 		    Component c = (Component)evt.getSource();
 		    int widthTemp = getWidth();
 		    int heightTemp = getHeight();
-		    int wOffset = (widthTemp - w/p*p) / 2;
-		    int hOffset = (heightTemp - h/p*p) / 2;
+		    wOffset = (widthTemp - 10 - w/p*p) / 2;
+		    hOffset = (heightTemp - 99 - h/p*p) / 2;
 		    graph.resizeGraph(wOffset, hOffset);
 		}
 	    });
@@ -117,7 +125,7 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	snake = new Snake(w/p/2,0);
 	grid = new GameGrid(w/p,h/p,snake);
 	move = new SnakeMover(new Coord(w/p/2,0),
-			      new Coord(0,1),grid,snake);
+			      new Coord(0,0),grid,snake);
 	graph = grid.setGraphics(w,h,p,grid);
 	graph.addKeyListener(move);
 	
@@ -155,7 +163,13 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
     public void actionPerformed(ActionEvent e) {
     	JButton sourceEvent = (JButton) e.getSource();
     	if (sourceEvent == newGame) {
-    	    restartGame();
+    		if (gameStarted) {
+    		    restartGame();
+    		}
+    		else {
+    			startGame();
+    			gameStarted = true;
+    		}
     	}
     	else if (sourceEvent == reset) {
 	    hsValue = 0;
@@ -179,6 +193,9 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
     public void setHighScore(int nhs) {
 	if (hsValue < nhs) hsValue = nhs;
 	highScore.setText(String.valueOf(hsValue));
+    }
+    public void startGame() {
+    	move.resetDrct(new Coord(0,1));
     }
 
     public void restartGame() {

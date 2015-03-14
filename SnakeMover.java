@@ -50,7 +50,6 @@ public class SnakeMover implements KeyListener, Runnable {
 			if (!grid.snakeMove(drct))
 			    stop();
 			
-
 			// add an obstacle every ten move
 			if (grid.tenStep())
 				grid.addObstacle();
@@ -61,8 +60,6 @@ public class SnakeMover implements KeyListener, Runnable {
 				grid.sliderSync(speed);
 				speedup = false;
 			}
-		    
-
 		}
     }
 
