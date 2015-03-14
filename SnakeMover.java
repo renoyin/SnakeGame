@@ -104,6 +104,14 @@ public class SnakeMover implements KeyListener, Runnable {
 		// add 10 points
 		grid.addPoints(10);
 
-		speedup = true;	}
+		speedup = true;	
+		
+		if ((grid.getPoints() % 100 == 0)
+		    && (speedup) && (speed < 20)) {
+			speed += 1;
+			grid.sliderSync(speed);
+			speedup = false;
+		}
+	}
     }
 }
