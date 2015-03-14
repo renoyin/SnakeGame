@@ -95,11 +95,11 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	int iniH = h;
 	if (w<400) iniW = 400;
 	if (h<400) iniH = 400;
-	// 99 is approximately the height of the two
+	// 100 is approximately the height of the two
 	// labels above and the buttons below.
 	// 10 is approximately the extra width needed to 
 	// fit the graph grid.
-	setSize(iniW + 10 + wOffset, iniH + 99 + hOffset);
+	setSize(iniW + 8 + wOffset, iniH + 107 + hOffset);
 	wOffset = (iniW - w/p*p) / 2;
 	hOffset = (iniH - h/p*p) / 2;
 	graph.resizeGraph(wOffset, hOffset);
@@ -115,8 +115,8 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 		    Component c = (Component)evt.getSource();
 		    int widthTemp = getWidth();
 		    int heightTemp = getHeight();
-		    wOffset = (widthTemp - 10 - w/p*p) / 2;
-		    hOffset = (heightTemp - 99 - h/p*p) / 2;
+		    wOffset = (widthTemp - 6 - w/p*p) / 2;
+		    hOffset = (heightTemp - 100 - h/p*p) / 2;
 		    graph.resizeGraph(wOffset, hOffset);
 		}
 	    });
