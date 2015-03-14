@@ -83,6 +83,7 @@ public class GameGrid {
 
 	public boolean snakeGrow(Coord direction) {
 		snake.grow(direction);
+		step++;
 		
 		if ((direction.getX() == 0) && (direction.getY() == 0))
 		    return true;

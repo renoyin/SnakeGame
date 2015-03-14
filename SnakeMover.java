@@ -47,24 +47,10 @@ public class SnakeMover implements KeyListener, Runnable {
 		while (true) {
 			try { TimeUnit.MILLISECONDS.sleep(1000/speed);}
 			catch (InterruptedException e){};
+
+			if (!grid.snakeMove(drct))
+			    stop();
 			
-		    // whether the snake changes direction
-			if (turn == true) {
-				drct = nd;
-				if (!grid.snakeGrow(drct))
-					break;
-
-				// add 10 points
-				grid.addPoints(10);
-
-				// add an obstacle
-				grid.addObstacle();
-				speedup = true;
-			}
-			else {
-				if (!grid.snakeMove(drct))
-				    stop();
-			}
 
 			// add an obstacle every ten move
 			if (grid.tenStep())
@@ -108,10 +94,16 @@ public class SnakeMover implements KeyListener, Runnable {
 	    int change = 1;
 	    if (key == 'l') change = -1;
 	    if (drct.getX() == 0)
-		nd= new Coord(change*drct.getY(), 0);
+			nd= new Coord(change*drct.getY(), 0);
 	    else
-		nd = new Coord(0,-change*drct.getX());
-	    turn = true;
-	}
+			nd = new Coord(0,-change*drct.getX());
+		drct = nd;
+		if (!grid.snakeGrow(drct))
+			stop();
+
+		// add 10 points
+		grid.addPoints(10);
+
+		speedup = true;	}
     }
 }
