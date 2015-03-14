@@ -42,10 +42,12 @@ public class Snake {
 		int y = direction.getY();
 		int xHead = coords.get(0).getX();
 		int yHead = coords.get(0).getY();
+		// move the body one step forward
 		for (int i = coords.size()-1; i > 0; i--) {
 			coords.get(i).xIs(coords.get(i-1).getX());
 			coords.get(i).yIs(coords.get(i-1).getY());
 		}
+		// set the new head
 		coords.get(0).xIs(xHead + x);
 		coords.get(0).yIs(yHead + y);
 	}

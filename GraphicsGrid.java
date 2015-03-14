@@ -80,7 +80,7 @@ public class GraphicsGrid extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
 	super.paintComponent(g);
-	
+	//fill all cells
 	for (int i = 0; i < xSeg; i++) 
 	    for (int j = 0; j < ySeg; j++) {
 		int cellX = (i * segSize + wOffset);
@@ -88,7 +88,7 @@ public class GraphicsGrid extends JPanel {
 		g.setColor(gameGrid.getColor(i, j));
 		g.fillRect(cellX, cellY, segSize, segSize);
 	    }
-	
+	// draw the grid
 	g.setColor(Color.BLACK);
 	
 	for (int i = 0; i <= width; i += segSize)

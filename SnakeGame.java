@@ -54,7 +54,7 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	w = width;
 	h = height;
 	p = pixel;
-
+	// set the top panel 
 	topPanel = new JPanel();
 	topPanel.setLayout(new GridLayout(2, 3));
 	text1 = new JLabel("Score: ");
@@ -62,13 +62,13 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	score = new JLabel("0");
 	highScore = new JLabel("0");
 	gameOver = new JLabel("");
-	
+	// add component to top panel
 	topPanel.add(text1);
 	topPanel.add(score);
 	topPanel.add(gameOver);
 	topPanel.add(text2);
 	topPanel.add(highScore);
-	
+	//set bottom panel
 	bottomPanel = new JPanel();
 	bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 	newGame = new JButton("NEW GAME");
@@ -77,26 +77,28 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	reset.setFocusable(false);
 	newGame.addActionListener(this);
 	reset.addActionListener(this);
-
+	// set slider 
 	slider = new JSlider(speedMin, speedMax, speedInit);
 	slider.addChangeListener(this);
 	slider.addKeyListener(move);
-		
-	contentPane.add(topPanel, BorderLayout.NORTH);
-	contentPane.add(bottomPanel, BorderLayout.SOUTH);
-	contentPane.validate();
-
-    bottomPanel.add(newGame);
+	// add components to bottom panel
+	bottomPanel.add(newGame);
 	bottomPanel.add(reset);
 	bottomPanel.add(slider);
 	bottomPanel.validate();
+	// add panels to contentPane	
+	contentPane.add(topPanel, BorderLayout.NORTH);
+	contentPane.add(bottomPanel, BorderLayout.SOUTH);
+	contentPane.validate();
 
 	int iniW = w;
 	int iniH = h;
 	if (w<400) iniW = 400;
 	if (h<400) iniH = 400;
-	// 99 is approximately the height of the two labels above and the buttons below.
-	// 10 is approximately the extra width needed to fit the graph grid.
+	// 99 is approximately the height of the two
+	// labels above and the buttons below.
+	// 10 is approximately the extra width needed to 
+	// fit the graph grid.
 	setSize(iniW + 10 + wOffset, iniH + 99 + hOffset);
 	wOffset = (iniW - w/p*p) / 2;
 	hOffset = (iniH - h/p*p) / 2;
@@ -106,7 +108,8 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	setVisible(true);
 	graph.repaint();
 
-	// Responds to the action of resizing the window and centering the graphic grid.
+	// Responds to the action of resizing the window 
+	// and centering the graphic grid.
 	this.addComponentListener(new ComponentAdapter() {  
 		public void componentResized(ComponentEvent evt) {
 		    Component c = (Component)evt.getSource();
@@ -120,7 +123,6 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
     }
     
     public static void main(String[] a) {
-	
 	// Detect the arguments and avoid errors.
 	if (a.length == 3) {
 	    try {
@@ -169,11 +171,16 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	 * Prints the usage statement.
      */
     public static void printHelp() {
-	System.out.println("$ java SnakeGame [width height segmentsize]\n"+
-			   "     width - Integer width of the playing grid in pixels\n"+
-			   "     height - Integer height of the playing grid in pixels\n"+
-			   "     segmentsize - Integer size of each snake segement in pixels\n\n"+
-			   "     defaults: width = 400, height = 400, segmentsize = 10");
+	System.out.println("$ java SnakeGame"+
+				" [width height segmentsize]\n"+
+			   	"     width - Integer width"+
+			   	" of the playing grid in pixels\n"+
+			   	"     height - Integer height of"+
+			   	" the playing grid in pixels\n"+
+			   	"     segmentsize - Integer size"+
+			   	" of each snake segement in pixels\n\n"+
+			   	"     defaults: width = 400, "+
+			   	"height = 400, segmentsize = 10");
     }
     
     /**
@@ -205,7 +212,7 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	    gamePause = true;
 	    gameOver();
     	}
-	graph.repaint();
+		graph.repaint();
     }
 
     /**
@@ -265,6 +272,6 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
     public void gameOver() {
     	if (!gamePause) gameOver.setText("GAME OVER!");
     	move.stop();
-	gamePause = false;
+		gamePause = false;
     }
 }
