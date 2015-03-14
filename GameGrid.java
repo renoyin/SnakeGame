@@ -61,6 +61,7 @@ public class GameGrid {
 
 	public boolean snakeMove(Coord direction) {
 		snake.move(direction);
+
 		if ((direction.getX() == 0) && (direction.getY() == 0))
 		    return true;
 		if (!valid())
@@ -83,7 +84,6 @@ public class GameGrid {
 
 	public boolean snakeGrow(Coord direction) {
 		snake.grow(direction);
-		step++;
 		
 		if ((direction.getX() == 0) && (direction.getY() == 0))
 		    return true;
@@ -108,7 +108,6 @@ public class GameGrid {
 
 	public boolean valid() {
 		snakeHead = snake.getSnake().get(0);
-		step++;
 
 		if (snakeHead.getX() < 0 || snakeHead.getX() >= xMax) {
 			game.gameOver();
@@ -130,7 +129,8 @@ public class GameGrid {
 			game.gameOver();
 			return false;
 		}
-
+		step++;
+		
 		return true;
 	}
 
