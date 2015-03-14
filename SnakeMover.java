@@ -13,8 +13,7 @@ public class SnakeMover implements KeyListener, Runnable {
     boolean speedup = false;
     GraphicsGrid graphicsGrid;
 
-   
-    /**
+      /**
      * Initializes the grid and the current target that is to be moved.
      * @param w The width of the grid
      * @param h The height of the grid
@@ -37,7 +36,6 @@ public class SnakeMover implements KeyListener, Runnable {
 	speed = 1;
     }
     
-
     /**
      * Executes the moving of the snake.
      */
@@ -46,14 +44,12 @@ public class SnakeMover implements KeyListener, Runnable {
 		while (true) {
 			try { TimeUnit.MILLISECONDS.sleep(1000/speed);}
 			catch (InterruptedException e){};
-
 			if (!grid.snakeMove(drct))
 			    stop();
-			
+
 			// add an obstacle every ten move
 			if (grid.tenStep())
 				grid.addObstacle();
-
 			if ((grid.getPoints() % 100 == 0)
 			    && (speedup) && (speed < 20)) {
 				speed += 1;
@@ -74,12 +70,6 @@ public class SnakeMover implements KeyListener, Runnable {
 
 
     // Implement the KeyListener Interface
-    public void keyPressed(KeyEvent e) {
-    }
-    
-    public void keyReleased(KeyEvent e) {
-    }
-    
     public void keyTyped(KeyEvent e) {
 	char key = e.getKeyChar();
 	
@@ -100,13 +90,13 @@ public class SnakeMover implements KeyListener, Runnable {
 		grid.addPoints(10);
 
 		speedup = true;	
-
 		if ((grid.getPoints() % 100 == 0)
 		    && (speedup) && (speed < 20)) {
 			speed += 1;
 			grid.sliderSync(speed);
 			speedup = false;
 		}
+		
 		if (grid.tenStep())
 			grid.addObstacle();
 	}
