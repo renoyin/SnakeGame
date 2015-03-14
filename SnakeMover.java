@@ -33,7 +33,6 @@ public class SnakeMover implements KeyListener, Runnable {
     public void resetDrct(Coord drct) {
 	this.drct = drct;
 	speedup = false;
-	turn = false;
 	going = true;
 	speed = 1;
     }
