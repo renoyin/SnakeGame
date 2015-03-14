@@ -65,7 +65,7 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	contentPane.add(bottomPanel, BorderLayout.SOUTH);
 	contentPane.validate();
 
-      	bottomPanel.add(newGame);
+    bottomPanel.add(newGame);
 	bottomPanel.add(reset);
 	bottomPanel.add(slider);
 	bottomPanel.validate();
@@ -80,10 +80,10 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	this.addComponentListener(new ComponentAdapter() {  
 		public void componentResized(ComponentEvent evt) {
 		    Component c = (Component)evt.getSource();
-		    int w = getWidth();
-		    int h = getHeight();
-		    int wOffset = (w - w/p*p) / 2;
-		    int hOffset = (h - h/p*p) / 2;
+		    int widthTemp = getWidth();
+		    int heightTemp = getHeight();
+		    int wOffset = (widthTemp - w/p*p) / 2;
+		    int hOffset = (heightTemp - h/p*p) / 2;
 		    graph.resizeGraph(wOffset, hOffset);
 		}
 	    });
