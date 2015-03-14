@@ -7,12 +7,15 @@ import java.lang.Runnable;
 import java.util.concurrent.TimeUnit;
 import java.awt.event.*;
 import javax.swing.event.*;
-public class SnakeGame extends JFrame implements ChangeListener {
+
+public class SnakeGame extends JFrame implements ChangeListener, ActionListener {
     private static int w = 400, h = 400, p = 10;
+    private static int wOffset, hOffset;
     private static GameGrid grid;
     private static SnakeMover move;
     private static Snake snake;
     private static GraphicsGrid graph;
+    private static SnakeGame game;
     private static JLabel text1, text2, score, highScore;
     private static JLabel gameOver;
     private static JPanel topPanel;
@@ -22,7 +25,9 @@ public class SnakeGame extends JFrame implements ChangeListener {
     private static int sliderValue = 1;
     private static int speedMin = 0, speedMax = 20, speedInit = 1;
     private static JButton newGame, reset;
-    
+    private static int hsValue = 0;
+    private static boolean gamePause = false;
+
     public SnakeGame(int width, int height, int pixel) {
 	super();
 	w = width;
@@ -47,32 +52,40 @@ public class SnakeGame extends JFrame implements ChangeListener {
 	bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 	newGame = new JButton("NEW GAME");
 	reset = new JButton("Reset!");
-	slider = new JSlider();
-	
-	
+	newGame.setFocusable(false);
+	reset.setFocusable(false);
+	newGame.addActionListener(this);
+	reset.addActionListener(this);
+
+	slider = new JSlider(speedMin, speedMax, speedInit);
+	slider.addChangeListener(this);
 	
 	contentPane.add(topPanel, BorderLayout.NORTH);
 	contentPane.add(bottomPanel, BorderLayout.SOUTH);
 	contentPane.validate();
-	
-	setSize(w + 10, h + 95);
-	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	add(graph);
-	setVisible(true);
-	graph.repaint();
-	
-	
-	slider = new JSlider(speedMin, speedMax, speedInit);
-	slider.addChangeListener(this);
-	
-	bottomPanel.add(newGame);
+
+      	bottomPanel.add(newGame);
 	bottomPanel.add(reset);
 	bottomPanel.add(slider);
-	/*
-	  newGame.addActionListener(this);
-	  reset.addActionListener(this);
-	*/
+	bottomPanel.validate();
 	
+	
+	setSize(w + 10 + wOffset, h + 99 + hOffset);
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	contentPane.add(graph, BorderLayout.CENTER);
+	setVisible(true);
+	graph.repaint();
+
+	this.addComponentListener(new ComponentAdapter() {  
+		public void componentResized(ComponentEvent evt) {
+		    Component c = (Component)evt.getSource();
+		    int w = getWidth();
+		    int h = getHeight();
+		    int wOffset = (w - w/p*p) / 2;
+		    int hOffset = (h - h/p*p) / 2;
+		    graph.resizeGraph(wOffset, hOffset);
+		}
+	    });
     }
     
     public static void main(String[] a) {
@@ -107,7 +120,7 @@ public class SnakeGame extends JFrame implements ChangeListener {
 	graph = grid.setGraphics(w,h,p,grid);
 	graph.addKeyListener(move);
 	
-	SnakeGame game = new SnakeGame(w, h, p);
+	game = new SnakeGame(w, h, p);
 	grid.passGame(game);
 	
 	Thread t = new Thread(move);
@@ -137,19 +150,20 @@ public class SnakeGame extends JFrame implements ChangeListener {
     }
 
     
-    /*
     @Override 
     public void actionPerformed(ActionEvent e) {
-    	JButton sourceEvent = (JButton) event.getSource();
-
+    	JButton sourceEvent = (JButton) e.getSource();
     	if (sourceEvent == newGame) {
-    		//new game
+    	    restartGame();
     	}
     	else if (sourceEvent == reset) {
-    		//reset
+	    hsValue = 0;
+	    highScore.setText("0");
+	    gamePause = true;
+	    gameOver();
     	}
+	graph.repaint();
     }
-    */
 
     public void stateChanged(ChangeEvent e) {
 	int speedValue = slider.getValue();
@@ -162,8 +176,29 @@ public class SnakeGame extends JFrame implements ChangeListener {
 	slider.setValue(speed);
     }
 
-    public void gameOver() {
-    	gameOver.setText("GAME OVER!");
-    	move.stop();
+    public void setHighScore(int nhs) {
+	if (hsValue < nhs) hsValue = nhs;
+	highScore.setText(String.valueOf(hsValue));
     }
+
+    public void restartGame() {
+	w = graph.getWidth();
+	h = graph.getHeight();
+	gameOver.setText("");
+	snake.setSnake(w/p/2,0);
+	grid.reset(w/p,h/p);
+	move.resetDrct(new Coord(0,1));
+	graph.resetGraph(w,h,p);
+	graph.repaint();
+	slider.setValue(1);
+	move.speedTo(1);
+	setScore();
+    }
+
+    public void gameOver() {
+    	if (!gamePause) gameOver.setText("GAME OVER!");
+    	move.stop();
+	gamePause = false;
+    }
+
 }

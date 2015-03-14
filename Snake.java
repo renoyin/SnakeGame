@@ -7,7 +7,11 @@ public class Snake {
 		coords = new ArrayList<Coord>();
 		coords.add(new Coord(initX, initY));
 	}
-
+    
+        public void setSnake(int initX, int initY) {
+	    coords = new ArrayList<Coord>();
+	    coords.add(new Coord(initX,initY));
+	}
 	public void move(Coord direction) {
 		int x = direction.getX();
 		int y = direction.getY();

@@ -36,6 +36,20 @@ public class GameGrid {
 		game = g;
 	}
 
+    public void reset(int xSegMax, int ySegMax) {
+	xMax = xSegMax;
+	yMax = ySegMax;
+	snakeHead = snake.getSnake().get(0);
+	grid = new Color[xMax][yMax];
+	for (int i = 0; i < xMax; i++)
+	    for (int j = 0; j < yMax; j++)
+		grid[i][j] = EMPTY;
+	grid[snakeHead.getX()][snakeHead.getY()] = HEAD;
+	rndm = new Random();
+	points = 0;
+	step = 0;
+    }
+
     public GraphicsGrid setGraphics(int w,int h,int p,GameGrid grid) {
     	graphicsGrid = new GraphicsGrid(w,h,p,grid);
     	return graphicsGrid;
@@ -47,7 +61,8 @@ public class GameGrid {
 
 	public boolean snakeMove(Coord direction) {
 		snake.move(direction);
-
+		if ((direction.getX() == 0) && (direction.getY() == 0))
+		    return true;
 		if (!valid())
 			return false;
 
@@ -69,6 +84,8 @@ public class GameGrid {
 	public boolean snakeGrow(Coord direction) {
 		snake.grow(direction);
 		
+		if ((direction.getX() == 0) && (direction.getY() == 0))
+		    return true;
 		if (!valid())
 			return false;
 
@@ -92,12 +109,12 @@ public class GameGrid {
 		snakeHead = snake.getSnake().get(0);
 		step++;
 
-		if (snakeHead.getX() < 0 || snakeHead.getX() > xMax) {
+		if (snakeHead.getX() < 0 || snakeHead.getX() >= xMax) {
 			game.gameOver();
 			return false;
 		}
 
-		if (snakeHead.getY() < 0 || snakeHead.getY() > yMax) {
+		if (snakeHead.getY() < 0 || snakeHead.getY() >= yMax) {
 			game.gameOver();
 			return false;
 		}
@@ -129,23 +146,24 @@ public class GameGrid {
 		}
 	}
 
-	public boolean tenStep() {
-		if (step == 10) {
-			step = 0;
-			return true;
+    public boolean tenStep() {
+	if (step == 10) {
+	    step = 0;
+	    return true;
 		}
-		return false;
-	}
-
-	public void addPoints(int p) {
-		points += p;
-		game.setScore();
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
+	return false;
+    }
+    
+    public void addPoints(int p) {
+	points += p;
+	game.setScore();
+	game.setHighScore(points);
+    }
+    
+    public int getPoints() {
+	return points;
+    }
+    
     public void sliderSync(int speed) {
 	game.setSlider(speed);
     }

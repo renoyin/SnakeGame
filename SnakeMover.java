@@ -29,6 +29,14 @@ public class SnakeMover implements KeyListener, Runnable {
 		this.drct = drct;
 		this.snake = snake;
     }
+
+    public void resetDrct(Coord drct) {
+	this.drct = drct;
+	speedup = false;
+	turn = false;
+	going = true;
+	speed = 1;
+    }
     
 
     /**
@@ -36,11 +44,10 @@ public class SnakeMover implements KeyListener, Runnable {
      */
     public void run(){
 
-		while (going) {
-
+		while (true) {
 			try { TimeUnit.MILLISECONDS.sleep(1000/speed);}
 			catch (InterruptedException e){};
-
+			
 		    // whether the snake changes direction
 			if (turn == true) {
 				drct = nd;
@@ -56,7 +63,7 @@ public class SnakeMover implements KeyListener, Runnable {
 			}
 			else {
 				if (!grid.snakeMove(drct))
-					break;
+				    stop();
 			}
 
 			// add an obstacle every ten move
@@ -80,8 +87,10 @@ public class SnakeMover implements KeyListener, Runnable {
     }
 
     public void stop(){
-		going = false;
+	drct = new Coord(0,0);
+	going = false;
     }
+
 
     // Implement the KeyListener Interface
     public void keyPressed(KeyEvent e) {
