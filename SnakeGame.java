@@ -65,7 +65,7 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	contentPane.add(bottomPanel, BorderLayout.SOUTH);
 	contentPane.validate();
 
-      	bottomPanel.add(newGame);
+    bottomPanel.add(newGame);
 	bottomPanel.add(reset);
 	bottomPanel.add(slider);
 	bottomPanel.validate();
