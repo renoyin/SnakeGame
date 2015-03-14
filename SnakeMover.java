@@ -90,19 +90,19 @@ public class SnakeMover implements KeyListener, Runnable {
     }
 
     /**
-     * Implement the KeyListener Interface
+     * Implement the KeyListener Interface.
      */
  	public void keyPressed(KeyEvent e) {
     }
 
     /**
-     * Implement the KeyListener Interface
+     * Implement the KeyListener Interface.
      */
     public void keyReleased(KeyEvent e) {
     }
 
     /**
-     * Implement the KeyListener Interface
+     * Implement the KeyListener Interface.
      * Turns the snake if the user hits 'l' or 'j' key.
      */
     public void keyTyped(KeyEvent e) {

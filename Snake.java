@@ -1,7 +1,12 @@
 /**
- * This class creates a instance of snake which 
+ * This class creates a instance of snake which
  * stores an arraylist of the snakes' coordinates.  
+ * @author SHUMING CAO A99088201
+ * @author YICHENG YIN A99076232
+ * @version 10.10
+ * @date 2014-03-13
  */
+
 import java.util.ArrayList;
 
 public class Snake {

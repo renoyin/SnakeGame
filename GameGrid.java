@@ -3,7 +3,12 @@
  * each cells in the grid. Everytime the method in this
  * class called to move snake, repaint() will be invoked 
  * to refresh the grid in GUI.
+ * @author SHUMING CAO A99088201
+ * @author YICHENG YIN A99076232
+ * @version 10.10
+ * @date 2014-03-13
  */
+
 import java.util.Random;
 import java.awt.*;
 
