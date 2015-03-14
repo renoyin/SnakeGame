@@ -1,3 +1,13 @@
+/**
+ * A class that controls the snake to move forward.
+ * Also detects user keyboard event that can turn the snake
+ * left or right.
+ * @author SHUMING CAO A99088201
+ * @author YICHENG YIN A99076232
+ * @version 10.10
+ * @date 2014-03-13
+ */
+
 import java.awt.*;
 import java.awt.event.*;	
 import java.util.concurrent.TimeUnit;
@@ -10,17 +20,17 @@ public class SnakeMover implements KeyListener, Runnable {
     boolean going = true;
     Coord drct,cp,nd;
     Snake snake;
+    // speedup is used to tell if speed should be increased.
     boolean speedup = false;
     GraphicsGrid graphicsGrid;
 
-      /**
-     * Initializes the grid and the current target that is to be moved.
-     * @param w The width of the grid
-     * @param h The height of the grid
-     * @param p The size of a cellar
-     * @param cp
-     * @param drct
-     * @param grid The reference of the current grid
+    /**
+     * Initializes the snake's starting point, the starting direction,
+     * the grid that the snake is on, and read in the snake reference.
+     * @param cp The starting position of the snake head.
+     * @param drct The starting direction of the snake's movement.
+     * @param grid The reference of the GameGrid.
+     * @param snake the reference of the snake.
      */
     public SnakeMover(Coord cp,Coord drct,GameGrid grid, Snake snake) {
 		this.grid = grid;
@@ -29,6 +39,10 @@ public class SnakeMover implements KeyListener, Runnable {
 		this.snake = snake;
     }
 
+    /**
+     * Resets the snake's moving direction.
+     * @param drct The new direction of the snake's movement.
+     */
     public void resetDrct(Coord drct) {
 	this.drct = drct;
 	speedup = false;
@@ -37,7 +51,7 @@ public class SnakeMover implements KeyListener, Runnable {
     }
     
     /**
-     * Executes the moving of the snake.
+     * Executes the moving of the snake forwards only.
      */
     public void run(){
 
@@ -59,23 +73,38 @@ public class SnakeMover implements KeyListener, Runnable {
 		}
     }
 
+    /**
+     * Sets the speed of the snake to a number.
+     * @param newSpeed The new speed of the snake.
+     */
     public void speedTo(int newSpeed) {
     	speed = newSpeed;
     }
 
+    /** 
+     * Sets the speed of the snake to 0.
+     */
     public void stop(){
 	drct = new Coord(0,0);
 	going = false;
     }
 
-
-    // Implement the KeyListener Interface
-    public void keyPressed(KeyEvent e) {
+    /**
+     * Implement the KeyListener Interface
+     */
+ 	public void keyPressed(KeyEvent e) {
     }
 
+    /**
+     * Implement the KeyListener Interface
+     */
     public void keyReleased(KeyEvent e) {
     }
 
+    /**
+     * Implement the KeyListener Interface
+     * Turns the snake if the user hits 'l' or 'j' key.
+     */
     public void keyTyped(KeyEvent e) {
 	char key = e.getKeyChar();
 	
@@ -92,9 +121,9 @@ public class SnakeMover implements KeyListener, Runnable {
 		if (!grid.snakeGrow(drct))
 			stop();
 
-		// add 10 points
 		grid.addPoints(10);
 
+		// Deals if speed should be increased
 		speedup = true;	
 		if ((grid.getPoints() % 100 == 0)
 		    && (speedup) && (speed < 20)) {
@@ -103,6 +132,7 @@ public class SnakeMover implements KeyListener, Runnable {
 			speedup = false;
 		}
 		
+		// Add an obstacle after 10 steps of movements
 		if (grid.tenStep())
 			grid.addObstacle();
 	}
