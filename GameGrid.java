@@ -1,3 +1,9 @@
+/**
+ * This class creates a 2D array to store the type of 
+ * each cells in the grid. Everytime the method in this
+ * class called to move snake, repaint() will be invoked 
+ * to refresh the grid in GUI.
+ */
 import java.util.Random;
 import java.awt.*;
 
@@ -8,8 +14,7 @@ public class GameGrid {
 	private static final Color OBSTACLE = Color.BLACK;
 	private Snake snake;
 	private Coord snakeHead;
-	private int xMax;
-	private int yMax;
+	private int xMax, yMax;
 	private Random rndm;
 	private Color[][] grid;
 	private int step = 0;
@@ -17,8 +22,12 @@ public class GameGrid {
 	private GraphicsGrid graphicsGrid;
 	private SnakeGame game;
 
-
-	// xSegMax and ySegMax are number of segments in x and y
+	/**
+	 * Constructor
+	 * @param xSegMax number of segments in x direction
+	 * @param ySegMax number of segments in y direction
+	 * @param s the reference of a Snake instance
+	 */
 	public GameGrid(int xSegMax, int ySegMax, Snake s) {
 		xMax = xSegMax;
 		yMax = ySegMax;
@@ -32,10 +41,19 @@ public class GameGrid {
 		rndm = new Random();
 	}
 
+	/**
+	 * Gets the reference of SnakeGame instance.
+	 * @param g reference of SnakeGame instance
+	 */
 	public void passGame(SnakeGame g) {
 		game = g;
 	}
 
+	/**
+	 * Reset the fields in GameGrid to start a new game.
+	 * @param xSegMax number of segments in x direction
+	 * @param ySegMax number of segments in y direction
+	 */
     public void reset(int xSegMax, int ySegMax) {
 	xMax = xSegMax;
 	yMax = ySegMax;
@@ -50,15 +68,38 @@ public class GameGrid {
 	step = 0;
     }
 
-    public GraphicsGrid setGraphics(int w,int h,int p,GameGrid grid) {
+    /**
+     * Creates a new GraphicsGrid instance and return 
+     * the reference.
+     * @param w width of grid
+     * @param h height of grid
+     * @param p size of each segment
+     * @param grid reference to GameGrid instance
+     * @return reference to a new GraphicsGrid instance
+     */
+    public GraphicsGrid setGraphics(int w,int h,int p,
+    								GameGrid grid) {
     	graphicsGrid = new GraphicsGrid(w,h,p,grid);
     	return graphicsGrid;
     }
 
+    /**
+     * Gets the color of a cell given its coordinate.
+     * @param x x coordinate of the cell
+     * @param y y coordinate of the cell
+     * @return reference to a Color instance
+     */
 	public Color getColor(int x, int y) {
 		return grid[x][y];
 	}
 
+	/**
+	 * Moves snake given a direction.
+	 * Then repaint the grid.
+	 * @param direction the direction of moving
+	 * @return true if the movement is valid,
+	 * false if the movement is invalid
+	 */
 	public boolean snakeMove(Coord direction) {
 		snake.move(direction);
 
@@ -82,6 +123,13 @@ public class GameGrid {
 		return true;
 	}
 
+	/**
+	 * Turns snake given a direction and grows a cell
+	 * to the head of snake. Then repaint the grid.
+	 * @param direction the direction of the turning
+	 * @return true if the movement is valid,
+	 * false if the movement is invalid
+	 */
 	public boolean snakeGrow(Coord direction) {
 		snake.grow(direction);
 		
@@ -106,6 +154,13 @@ public class GameGrid {
 		return true;
 	}
 
+	/**
+	 * Checks if the position of snake is valid 
+	 * and if snake intersects with itself.
+	 * @return true if the position is valid and snake 
+	 * does not intersect with itself, false if anything
+	 * breaks the rule
+	 */
 	public boolean valid() {
 		snakeHead = snake.getSnake().get(0);
 
@@ -134,6 +189,9 @@ public class GameGrid {
 		return true;
 	}
 
+	/**
+	 * Randomly adds an obstacle on the grid.
+	 */
 	public void addObstacle() {
 		boolean valid = true;
 
@@ -147,6 +205,12 @@ public class GameGrid {
 		}
 	}
 
+	/**
+	 * Counts the numbers of consecutive movements.
+	 * Resets step to zero if snake moves ten steps.
+	 * @return true if snake moves ten times, false if
+	 * less than ten steps
+	 */
     public boolean tenStep() {
 	if (step == 10) {
 	    step = 0;
@@ -155,16 +219,29 @@ public class GameGrid {
 	return false;
     }
     
+    /**
+     * Adds points and display on the GUI interface.
+     * @param p points need to be added
+     */
     public void addPoints(int p) {
 	points += p;
 	game.setScore();
 	game.setHighScore(points);
     }
     
+    /**
+     * Gets current number of points.
+     * @return number of current points
+     */
     public int getPoints() {
 	return points;
     }
     
+    /**
+     * SnakeMover can call this method to update
+     * the value of slider on the GUI interface.
+     * @param speed value of current speed of snake
+     */
     public void sliderSync(int speed) {
 	game.setSlider(speed);
     }
