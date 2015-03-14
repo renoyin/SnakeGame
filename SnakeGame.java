@@ -59,7 +59,8 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 
 	slider = new JSlider(speedMin, speedMax, speedInit);
 	slider.addChangeListener(this);
-	
+	slider.addKeyListener(move);
+		
 	contentPane.add(topPanel, BorderLayout.NORTH);
 	contentPane.add(bottomPanel, BorderLayout.SOUTH);
 	contentPane.validate();
@@ -169,7 +170,6 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	int speedValue = slider.getValue();
 	if (speedValue > 0)
 	    move.speedTo(speedValue);
-	slider.addKeyListener(move);
     }
 
     public void setSlider(int speed) {
