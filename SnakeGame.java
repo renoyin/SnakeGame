@@ -211,6 +211,9 @@ public class SnakeGame extends JFrame implements ChangeListener, ActionListener 
 	    highScore.setText("0");
 	    gamePause = true;
 	    gameOver();
+	    slider.setValue(1);
+	    move.speedTo(1);
+	    gameOver.setText("");
     	}
 		graph.repaint();
     }
